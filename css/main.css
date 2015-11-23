@@ -1,0 +1,301 @@
+* {
+	margin:0;
+	padding:0;
+}
+
+body {
+	background:url(../img/world.jpg)no-repeat;
+	background-size:100%;
+	position:relative;
+}
+/*вход*/
+.logo {
+	position:absolute;
+	left:50%;
+	margin-left:-322px;
+}
+
+.button-play {
+	position:absolute;
+	top:300px;
+	left:50%;
+	margin-left:-160px;
+}
+/*регистрация*/
+
+.registration {
+	display:block;
+	position:absolute;
+	top:300px;
+	left:50%;
+	margin-left:-330px;
+	width:660px;
+	font-size:0;
+}
+
+.login {
+	display:inline-block;
+	margin-right:20px;
+}
+
+.signup {
+	display:inline-block;
+}
+/*тут выбрать какое отображать браток display:block;*/
+.login-window {
+	display:none;
+	width:370px;
+	margin-left:-205px;
+	padding:20px;
+	position:absolute;
+	top:450px;
+	left:50%;
+	background:#f5752c;
+	border-radius:10px;
+}
+/*тут выбрать какое окошко отображать браток display:block;*/
+.registration-window {
+	display:none;
+	width:370px;
+	margin-left:-205px;
+	padding:20px;
+	position:absolute;
+	top:450px;
+	left:50%;
+	background:#f5752c;
+	border-radius:10px;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"],
+.registration-form input[type="text"] {
+	border:none;
+	padding:10px 4px;
+	margin-bottom:15px;
+	border-radius:5px;
+	margin-bottom:8px;
+}
+
+.login-form input[type="text"] {
+	margin-right:10px;
+}
+
+.registration-form input[type="text"] {
+	margin-right:10px;
+}
+
+.registration-form input[type="text"]:nth-child(2n) {
+	margin-right:0;
+}
+
+.login-form input[type="submit"],
+.registration-form input[type="submit"] {
+	display:inline-block;
+	text-align:center;
+	background:#459ad3;
+	color:white;
+	font-weight:bold;
+	text-transform:uppercase;
+	border:none;
+	padding:8px;
+	border-radius:5px;
+	margin-top:5px;
+	margin-left:144px;
+	cursor:pointer;
+}
+
+.login-form input[type="submit"]:hover {
+	background:#4babeb;
+}
+
+/*выбор игрока*/
+
+.destiny {
+	position:absolute;
+	top:580px;
+	left:50%;
+	margin-left:-348px;
+}
+
+.destiny-menu {
+	display:block;
+	position:absolute;
+	width:1020px;
+	top:300px;
+	left:50%;
+	margin-left:-510px;
+}
+
+.mongo,
+.gorob,
+.ilyusha {
+	display:inline-block;
+	margin-right:20px;
+}
+
+.ilyusha {
+	margin-right:0;
+}
+
+/*игра*/
+.timer {
+position:absolute;
+top:160px;
+left:83%;
+	z-index:10;
+}
+
+.timer-display {
+	color:#605e5e;
+	font-family: 'Black Ops One', cursive;
+	font-size:21px;
+	display:block;
+	position:absolute;
+	top:43%;
+	left:24%;
+	z-index:10;
+}
+
+#alc {
+	margin-top:35px;
+	background:#f5752c;
+	color:white;
+	display:block;
+	width:800px;
+	text-align:center;
+	padding:30px 0;
+	border-radius:0 0 15px 15px;
+	font-size:20px;
+	font-weight:bold;
+	text-transform:uppercase;
+	position:absolute;
+	left:50%;
+	margin-left:-400px;
+	top:503px;
+	z-index:2;
+}
+
+#googleMap {
+	position:absolute;
+	left:50%;
+	margin-left:-400px;
+	top:160px;
+}
+
+/*окно топа**************************************************/
+
+.rating-bg,.alarm-bg {
+	display: none; /*тут none что бы закрыть,block что бы открыть*/
+	background: rgba(255,255,255,0.6);
+	background-size: 100%;
+	position: relative;
+	height: 660px;
+	width: 100%;
+	z-index: 30;
+}
+
+.rating {
+	display: block;
+	position: absolute;
+	top: 21%;
+	left:50%;
+	margin-left: -225px;
+	width: 450px;
+	min-height: 150px;
+	background:#f5752c ;
+	border-radius: 10px;
+	padding: 10px;
+}
+
+.your-result,.top-10,.alarm {
+	text-align: center;
+	color: white;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+.your-result-list {
+	list-style: none;
+	margin-left: 0px;
+	margin-top: 10px;
+}
+
+.your-result-list li {
+	background: white;
+	width: 440px;
+	color: rgba(0, 0, 0, 0.79);
+	padding: 5px;
+	border-radius: 5px;
+}
+
+.top-10 {
+	margin-top:10px;
+}
+
+.top-10-list {
+	list-style: none;
+	margin-left: 0px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.top-10-list li {
+	background: white;
+	width: 440px;
+	color: rgba(0, 0, 0, 0.78);
+	padding: 5px;
+	border-bottom: dashed 1px rgba(0, 0, 0, 0.26);
+}
+
+.rating input[type="submit"] {
+	display:inline-block;
+	text-align:center;
+	background:#459ad3;
+	color:white;
+	font-weight:bold;
+	text-transform:uppercase;
+	border:none;
+	padding:10px;
+	border-radius:5px;
+	margin-top:5px;
+	margin-left:144px;
+	cursor:pointer;
+}
+
+.alarm {
+	display: block;
+	position: absolute;
+	top: 21%;
+	left:50%;
+	margin-left: -225px;
+	width: 450px;
+	height: 60px;
+	background:#f5752c ;
+	border-radius: 10px;
+	padding:15px 10px 10px 10px;
+}
+
+.alarm input[type="submit"] {
+	display:inline-block;
+	text-align:center;
+	background:#459ad3;
+	color:white;
+	font-weight:bold;
+	text-transform:uppercase;
+	border:none;
+	padding:10px;
+	border-radius:5px;
+	margin-top:5px;
+	margin-left:144px;
+	cursor:pointer;
+}
+
+.alarm-bg {
+	display: block; /*тут none что бы закрыть,block что бы открыть*/
+	background: rgba(255,255,255,0.6);
+	background-size: 100%;
+	position: relative;
+	height: 660px;
+	width: 100%;
+	z-index: 30;
+}

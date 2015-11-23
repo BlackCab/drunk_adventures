@@ -1,0 +1,337 @@
+<!doctype HTML>
+<html>
+    <head>
+	
+	   <script>	    
+		   function getParameterByName(name) {
+               var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+               return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+               }	
+	    </script>	
+		
+		<script>
+		function showTop() {
+		    frm_top = document.getElementById('best_rate');
+		    frm_top.style.display = "block";
+		}
+		</script>
+	
+	    <script>
+        function startNewGame() {
+		session_id = getParameterByName('se');
+		u = getParameterByName('u');
+        avatar = getParameterByName('avatar');
+		document.location.href = "game.html?avatar="+avatar+"&se="+session_id+"&u="+u;
+		}
+		</script>
+	
+	    <script>
+		var newGameStarted = false;
+		</script>
+	
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Drunk Adventures</title>
+        <meta name="description" content="">
+        <link rel="stylesheet" href="css/main.css">
+		<script src="http://maps.googleapis.com/maps/api/js" charset="utf-8"></script>
+		
+		
+		<link href='https://fonts.googleapis.com/css?family=Black+Ops+One' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+		<div class="logo"><img src="img/logo.png"></div>
+		<div id="alarm-window" class="alarm-bg">
+			<div class="alarm">
+			Зарегайся или умри
+			<input class="" type="submit" value="Войдитя" >
+			</div>
+		</div>
+		<div class="timer">
+			<p><span class="timer-display" id = "timer" >01:00</span><img src="img/clock.png" height="250"></p>
+			<div id = "drunk-result">Ваш результат: 0</div>
+		</div>
+		<div id="googleMap" style="width:800px;height:420px;">
+		</div>
+		<div id="alc" name="alc"></div>
+		<div id="best_rate" class="rating-bg">
+            <div class="rating">
+                <div class="your-result">
+                    ваш результат
+                    <ul class="your-result-list">
+                        <li>Horobei - 1 балл</li>
+                    </ul>
+                </div>
+                <div class="top-10">
+                    топ лучших искателей приключений
+                    <ul class="top-10-list">
+                        <li>Horobei - 1 балл</li>
+                        <li>Horobei - 1 балл</li>
+                        <li>Horobei - 1 балл</li>
+                        <li>Horobei - 1 балл</li>
+                        <li>Horobei - 1 балл</li>
+                        <li>Horobei - 1 балл</li>
+                        <li>Horobei - 1 балл</li>
+                        <li>Horobei - 1 балл</li>
+                        <li>Horobei - 1 балл</li>
+                        <li>Horobei - 1 балл</li>
+                    </ul>
+                </div>
+                <input class="" type="submit" value="НОВОЕ ПУТЕШЕСТВИЕ" onclick = "javascript:newGameStarted = true; startNewGame();">
+            </div>
+    </body>
+
+	    <script>
+	       var is_auth = false;
+		   function getParameterByName(name) {
+               var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+               return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+               }	
+	   </script>
+		    	
+	   <script>
+	        var responseData = "";
+            var z = new XMLHttpRequest() ;
+            var data = new FormData();
+            data.append("session_id", getParameterByName('se'));
+            z.open("POST", "http://93.73.113.118:8880/check_if_logged_in", true);
+			z.onload = function () {
+			responseData = z.responseText;
+		    if (responseData != "not_authenticated") {
+		    frm_alarm = document.getElementById("alarm-window");
+		    frm_alarm.style.display = "none";
+            is_auth = true;
+		    }
+            }			
+            z.send(data);
+	
+		  </script>		
+	   
+	
+<script charset="utf-8">
+var map;
+var kiev = new google.maps.LatLng(50.4601268,30.5227661);
+var drunk_result = 0;
+// Add a Home control that returns the Hero to Kiev
+function HomeControl(controlDiv, map) {
+  controlDiv.style.padding = '5px';
+  var controlUI = document.createElement('div');
+  controlUI.style.backgroundColor = '';
+  controlUI.style.border='1px solid';
+  controlUI.style.cursor = 'pointer';
+  controlUI.style.textAlign = 'center';
+  controlUI.title = 'Set hero to Kiev';
+  controlDiv.appendChild(controlUI);
+  var controlText = document.createElement('div');
+  controlText.style.fontFamily='Arial,sans-serif';
+  controlText.style.fontSize='12px';
+  controlText.style.paddingLeft = '4px';
+  controlText.style.paddingRight = '4px';
+  controlText.innerHTML = '<b>Вернуть братишку домой<b>'
+  controlUI.appendChild(controlText);
+
+  // Setup click-event listener: simply set the map to Kiev
+  google.maps.event.addDomListener(controlUI, 'click', function() {
+    map.setCenter(kiev);
+	placeMarker(kiev);
+  });
+}
+
+
+// Start tornado timer 
+var y = new XMLHttpRequest();
+var data = new FormData();
+data.append("session_id", getParameterByName('se'));
+data.append("u", getParameterByName('u'));
+y.open("POST", "http://93.73.113.118:8880/", true);
+y.onload = function (){
+    showTop(); 
+}
+y.send(data);
+
+var gameTime = 60;
+
+// Start casio timer on client
+var timerId = setInterval(function() {
+  gameTime -= 1;
+  var timerStr = gameTime.toString();
+  if (timerStr.length < 2)  {
+  document.getElementById("timer").innerHTML= "00:0" + timerStr ; } else {document.getElementById("timer").innerHTML= "00:" + timerStr ;}
+}, 1000);
+
+// Finish game
+setTimeout(function() {
+  clearInterval(timerId);
+//  alert( 'Your time is over...' );
+}, 60000);
+
+var localAlcohol = ['GE', 'RU', 'UA', 'CZ', 'LT', 'US', 'TR', 'RO', 'PL', 'GR', 'DE', 'NO', 'FR', 'JP', 'PT', 'AM', 'GB', 'IE', 'MX', 'CU', 'CN', 'HU', 'SK', 'ES', 'EE', 'GR', 'KR', 'IT', 'PE', 'CL'];
+var drinks = ['чачи','водочки','горилочки', 'пивасика', 'алуса', 'бурбончика', 'ракии', 'туйки', 'зубровочки', 'метаксы', 'шнапсика', 'аквавита', 'кальвадоса', 'саке', 'портвейна', 'тутовки', 'вискарика', 'гинеса', 'текилки', 'ромчика', 'байцзю', 'паленки', 'сливовицы', 'сангрии', 'вана таллина', 'узо', 'чхонжу', 'граппы', 'писко', 'писко'];
+var orthodoxIslamicStates = ['AF','BN','IR','LY','KW','MV','MR','PK','SA','SD','SO','YE']
+var heroIsAngry = ['Эй, ты меня обмануть решил?',
+                      'Нет! Не нальют мне здесь такого!',
+                      'Эй, тут такого нету',
+                      'Ехх, ошибочка... А я-то думал здесь выпить',
+                      'Нет, не в этой жизни...',
+                      'Не наливают это здесь, ты меня уже огорчаешь',
+                      'Ну с таким темпом я точно отрезвею!']
+
+var alcohol = Math.floor(Math.random() * drinks.length);
+var avatar = ''
+
+avatar = getParameterByName('avatar') + '.png'
+function initialize() {
+
+var myStyle = [
+       {
+         featureType: "administrative",
+         elementType: "labels",
+         stylers: [
+           { visibility: "off" }
+         ]
+       },{
+         featureType: "poi",
+         elementType: "labels",
+         stylers: [
+           { visibility: "off" }
+         ]
+       },{
+         featureType: "water",
+         elementType: "labels",
+         stylers: [
+           { visibility: "off" }
+         ]
+       },{
+         featureType: "road",
+         elementType: "labels",
+         stylers: [
+           { visibility: "off" }
+         ]
+       }
+     ];
+  
+var myCenter=new google.maps.LatLng(50.4601268,30.5227661);
+  var mapProp = {
+    mapTypeControlOptions: {
+         mapTypeIds: ['mystyle', google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.TERRAIN]
+       },
+    center:new google.maps.LatLng(50.4601268,30.5227661),
+    zoom:5,
+	disableDefaultUI:true, 
+    mapTypeId:'mystyle'
+
+  };
+ 
+  map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+  map.mapTypes.set('mystyle', new google.maps.StyledMapType(myStyle, { name: 'My Style' }));
+  var homeControlDiv = document.createElement('div');
+  var homeControl = new HomeControl(homeControlDiv, map);
+//  homeControlDiv.index = 1;
+  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(homeControlDiv);
+  
+  marker=new google.maps.Marker({
+  position:myCenter,
+  icon: avatar
+  });
+  
+  infowindow = new google.maps.InfoWindow({
+  content:"Ку-ку! Я тута! И я хотел бы выпить немного " + drinks[alcohol]
+  
+  
+  });
+
+
+marker.setMap(map);
+
+infowindow.open(map,marker);
+infowindow.close();
+ 
+ google.maps.event.addListener(map, 'click', function(event) {
+  marker.setMap(null);
+  placeMarker(event.latLng);
+  });
+
+ document.getElementById("alc").innerHTML="<label>Наш герой хотел бы выпить " + drinks[alcohol]+ "</label>"; 
+}
+
+function placeMarker(location) {
+  
+  var x = new XMLHttpRequest();
+  x.open("GET", "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + location.lat() +"," + location.lng() + "&key=AIzaSyDJd_Zpb_AiEshXfn3RT9RtBdVusgzGhn4", true);
+  x.onload = function (){
+  var data = JSON.parse(x.responseText);
+
+  if (data.status == 'OK') {
+  for (var i=0; i<data.results[0].address_components.length; i++) {
+  if (data.results[0].address_components[i].types[0] == "country") {
+  var drunkJourney = data.results[0].address_components[i].long_name;
+  var drunkJourney_short = data.results[0].address_components[i].short_name;
+  }
+  }
+  }
+  
+  marker.setMap(null);
+  marker = new google.maps.Marker({
+    position: location,
+    icon:avatar,
+    map: map,
+  });
+  
+  
+  if (drunkJourney_short == localAlcohol[alcohol]) {
+  
+  drunk_result+=2;
+  document.getElementById("drunk-result").innerHTML= "Ваш результат:" + drunk_result;
+  
+  alcohol = Math.floor(Math.random() * drinks.length);
+  var infowindow = new google.maps.InfoWindow({
+    content: "Мммм... Вкуснятина! То что мне нужно! Теперь хочу " + drinks[alcohol]
+  });
+  infowindow.open(map,marker);
+  document.getElementById("alc").innerHTML="<label>Наш герой хотел бы выпить " + drinks[alcohol]+ "</label>"; 
+  } else if (orthodoxIslamicStates.indexOf(drunkJourney_short) != -1) { 
+  	drunk_result=drunk_result - 1;
+	document.getElementById("drunk-result").innerHTML= "Ваш результат:" + drunk_result;
+    var infowindow = new google.maps.InfoWindow({ 
+    content: "... Меня побили тут палками и хотели повесить!"
+  })
+  } else if (data.status == 'ZERO_RESULTS') {
+  drunk_result=drunk_result-1;
+  document.getElementById("drunk-result").innerHTML= "Ваш результат:" + drunk_result;
+  var infowindow = new google.maps.InfoWindow({
+  content: 'Ээээ... Тут вообще хоть что-то наливают?'
+  });
+  } else {
+  drunk_result=drunk_result-1;
+  document.getElementById("drunk-result").innerHTML= "Ваш результат:" + drunk_result;
+  var angryWords = Math.floor(Math.random() * heroIsAngry.length);  
+  var infowindow = new google.maps.InfoWindow({
+  
+    content: heroIsAngry[angryWords]
+	});
+	
+	}
+  infowindow.open(map,marker);	
+
+}
+x.send(null);
+} 
+
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+	<script>
+		window.onbeforeunload = OnBeforeUnload;
+	    function OnBeforeUnload(){
+            if (newGameStarted == false) {
+		    var v = new XMLHttpRequest();
+			var data = new FormData();
+			data.append("session_id", getParameterByName('se'));
+            data.append("u", getParameterByName('u'));
+            v.open("POST", "http://93.73.113.118:8880/delete_session", true);
+            v.send(data);
+            }
+		    }
+    </script>
+
+</html>

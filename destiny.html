@@ -1,0 +1,84 @@
+<!doctype HTML>
+<html>
+    <head>
+	
+	       <script>
+	    
+		   function getParameterByName(name) {
+               var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+               return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+               }	
+	       </script>
+		   
+          <script>
+	        var responseData = "";
+            var z = new XMLHttpRequest() ;
+            var data = new FormData();
+            data.append("session_id", getParameterByName('se'));
+            z.open("POST", "http://93.73.113.118:8880/check_if_logged_in", true);
+			z.onload = function () {
+			responseData = z.responseText;
+		    if (responseData != "not_authenticated") {
+		    frm_alarm = document.getElementById("alarm-window");
+		    frm_alarm.style.display = "none";
+		    }
+            }			
+            z.send(data);
+	
+		  </script>		
+ 
+		
+			<script>
+		window.onbeforeunload = OnBeforeUnload;
+	    function OnBeforeUnload(){
+            if (nextPageLoaded == false) {
+		    var y = new XMLHttpRequest();
+			var data = new FormData();
+			data.append("session_id", getParameterByName('se'));
+            data.append("u", getParameterByName('u'));
+            y.open("POST", "http://93.73.113.118:8880/delete_session", true);
+            y.send(data);
+            }
+		    }
+		   </script>
+		   
+		   <script>
+		   function startGame(avatar) {
+		   session_id = getParameterByName('se');
+           u = getParameterByName('u');
+		   document.location.href = "game.html?avatar="+avatar+"&se="+session_id+"&u="+u;
+		   }
+		   </script>
+		   
+	       <script>
+		   var nextPageLoaded = false;
+		   </script>
+	
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Drunk Adventures</title>
+        <meta name="description" content="">
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    <body>
+		<div id = "alarm-window" class="alarm-bg">
+			<div class="alarm">
+			Зарегайся или умри
+			<input class="" type="submit" value="Войдитя" >
+			</div>
+		</div>
+		<div class="logo"><img src="img/logo.png"></div>
+		<img class="destiny" src="img/destiny2.png" width="">
+		<div class="destiny-menu">
+			<div class="mongo" onclick = "javascript:nextPageLoaded = true; startGame('mongo');" >
+				<a href="#"><img src="img/mongo.png"width="320px"></a>
+			</div>
+			<div class="gorob" onclick = "javascript:nextPageLoaded = true; startGame('horobei');">
+				<a href="#"><img src="img/gorob.png"width="320px"></a>
+			</div>
+			<div class="ilyusha" onclick = "javascript:nextPageLoaded = true; startGame('ilyusha');">
+				<a href="#"><img src="img/ilyusha.png"width="320px"></a>
+			</div>
+		</div>
+    </body>
+</html>

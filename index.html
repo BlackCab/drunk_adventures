@@ -1,0 +1,114 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+		
+		<script>
+		
+		function showLogin() {
+		    frm_lgn = document.getElementById('login');
+		    frm_sgnup = document.getElementById('signup');
+		    frm_lgn.style.display = "block";
+		    frm_sgnup.style.display = "none";
+		}
+		
+		function showSignup() {
+		    frm_lgn = document.getElementById('login');
+		    frm_sgnup = document.getElementById('signup');
+		    frm_lgn.style.display = "none";
+		    frm_sgnup.style.display = "block";
+		}
+		
+		</script>
+			
+        <title>Drunk Adventures</title>
+        <meta name="description" content="">
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    <body>
+	
+	<script>
+	function u_login() {
+	    var responseData = "";
+		var y = new XMLHttpRequest();
+		var data = new FormData();
+		data.append("username", document.getElementById("login-field").value);
+		data.append("passwd", document.getElementById("passwd-field").value);
+        y.open("POST", "http://93.73.113.118:8880/login", true);
+        y.onload = function () {
+		responseData = JSON.parse(y.responseText);
+		    if (responseData["auth_status"] == "Authorization successful") {
+		    document.location.href = "destiny.html?se="+responseData["se"]+"&u="+responseData["u"];
+		    } else {
+			document.getElementById("loginErrorMessage").innerHTML = "<li>Проверьте правильность логина и пароля</li>" ;
+			}
+        }
+        y.send(data);
+		
+		}
+		
+	function u_submit() {
+        var responseData = "";
+        if (document.getElementById("reg-passwd-field").value == document.getElementById("reg-passwd-confirm-field").value) {
+        var responseData = "";
+		var y = new XMLHttpRequest();
+		var data = new FormData();
+		data.append("reg-username", document.getElementById("reg-login-field").value);
+		data.append("reg-passwd", document.getElementById("reg-passwd-field").value);
+        data.append("reg-email", document.getElementById("reg-mail-field").value);
+        y.open("POST", "http://93.73.113.118:8880/registration", true);
+        y.onload = function () {
+		responseData = JSON.parse(y.responseText);
+		if (responseData["reg_status"] == "Registration successful") {
+		document.location.href = "destiny.html?se="+responseData["se"]+"&u="+responseData["u"];
+		} else {
+		document.getElementById("registrationErrorMessage").innerHTML = "<li>Выбранное имя уже занято. Попробуйте другое.</li>" ;
+		}
+        }
+        y.send(data);		
+        } else {
+		document.getElementById("registrationErrorMessage").innerHTML = "<li>Введите пароль повторно</li>" ;
+		}
+	    }
+	</script>
+		<div class="logo"><img src="img/logo.png"></div>
+		<div class="registration">
+			<div class="login" onclick = "showLogin()" id = "classLogin">
+				<a href = "#">
+				<img src="img/log.png" width="320px">
+				</a>
+			</div>
+			<div class="signup" onclick = "showSignup()" id = "classSignup">
+				<a href = "#" ><img src="img/sign.png" width="320px"></a>
+			</div>
+		</div>
+		<div class="login-window"  id = "login">
+			<form class="login-form">
+			<p id = "loginErrorMessage"> </p>
+				<input class="" type="text" name="" placeholder="Введи логин браток" id = "login-field">
+				<input class="" type="password" name="" placeholder="Введи пароль браток" id = "passwd-field">
+				<input class="" type="submit" value="Войдитя" onclick = "u_login(); return false;">
+			</form>
+		</div>
+		<div class="registration-window"  id = "signup">
+			<form class="registration-form">
+			<p id = "registrationErrorMessage"> </p>
+				<input class="" type="text" name="" placeholder="Введи логин браток" id = "reg-login-field">
+				<input class="" type="text" name="" placeholder="Введи мыло браток" id = "reg-mail-field">
+				<input class="" type="text" name="" placeholder="Введи пароль браток" id = "reg-passwd-field">
+				<input class="" type="text" name="" placeholder="Еще раз пароль браток" id = "reg-passwd-confirm-field">
+				<input class="" type="submit" value="Войдитя" onclick = "u_submit(); return false;" >
+			</form>
+		</div>
+    </body>
+</html>
+
+
+<!--[14:56:19] Капитан Колесников: на первой странице поля для ввода ника и пароля
+[14:56:26] Капитан Колесников: и кнопка зарегаться
+[14:56:33] Капитан Колесников: и дальше уже если шо поле регистрации
+[14:56:38] Капитан Колесников: тьху поле
+[14:56:44] Капитан Колесников: не поле а страница
+[14:56:46] Капитан Колесников: ну или хз
+[14:56:50] Капитан Колесников: сделай как хочешь
+[14:56:56] Капитан Колесников: как считаешь удобнее-->
